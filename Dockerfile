@@ -7,5 +7,5 @@ COPY static ./static
 
 EXPOSE 9090
 
-CMD [python, main.py]
+CMD ["python", "main.py"]
 
