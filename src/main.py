@@ -22,6 +22,9 @@ class Serv(BaseHTTPRequestHandler):
         if self.path == "/vim.png":
             self.send_file("static/vim.png")
             return
+        if self.path == "/headshot.jpeg":
+            self.send_file("static/headshot.jpeg")
+            return
         try:
             file_to_open = open(os.path.join(
                 os.getcwd(), "static", self.path)).read()
@@ -60,7 +63,7 @@ def main():
 
     settings = Settings()
 
-    logging.info("Starting server on localhost:8080")
+    logging.info(f"Starting server on {settings.ip}:{settings.port}")
     httpd = HTTPServer((settings.ip, settings.port), Serv)
     httpd.serve_forever()
 
