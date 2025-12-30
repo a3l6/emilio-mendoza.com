@@ -8,8 +8,8 @@ import mimetypes
 @dataclass
 class Settings:
     """Class for keeping track of global settings"""
-    ip: str = 'localhost'
-    port: int = 8080
+    ip: str = '0.0.0.0'
+    port: int = 9090
 
 
 class Serv(BaseHTTPRequestHandler):
