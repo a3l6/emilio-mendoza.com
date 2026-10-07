@@ -50,7 +50,7 @@
 
   .page {
     flex: 1;
-    max-width: 720px;
+    max-width: 1000px;
     width: 100%;
     margin: 0 auto;
     padding: 96px 24px 80px;

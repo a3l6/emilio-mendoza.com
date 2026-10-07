@@ -1,14 +1,18 @@
 <script>
-  import Nav from '$lib/components/Nav.svelte';
-  import Footer from '$lib/components/Footer.svelte';
+  import Nav from "$lib/components/Nav.svelte";
+  import Footer from "$lib/components/Footer.svelte";
 
-  let { title = '', date = '', tags = [], excerpt = '', children } = $props();
+  let { title = "", date = "", tags = [], excerpt = "", children } = $props();
 
   function fmt(d) {
-    if (!d) return '';
-    return new Date(d).toLocaleDateString('en-GB', {
-      day: '2-digit', month: 'short', year: 'numeric',
-    }).toUpperCase();
+    if (!d) return "";
+    return new Date(d)
+      .toLocaleDateString("en-GB", {
+        day: "2-digit",
+        month: "short",
+        year: "numeric",
+      })
+      .toUpperCase();
   }
 </script>
 
@@ -46,7 +50,9 @@
 <Footer />
 
 <style>
-  :global(body) { background: var(--nokia-darkest); }
+  :global(body) {
+    background: var(--nokia-darkest);
+  }
 
   main {
     max-width: 720px;
@@ -55,15 +61,19 @@
   }
 
   .back {
-    font-family: 'Press Start 2P', monospace;
+    font-family: "Press Start 2P", monospace;
     font-size: 7px;
     color: var(--nokia-pixel);
     text-decoration: none;
     letter-spacing: 1px;
   }
-  .back:hover { color: var(--nokia-glow); }
+  .back:hover {
+    color: var(--nokia-glow);
+  }
 
-  header { margin: 24px 0 40px; }
+  header {
+    margin: 24px 0 40px;
+  }
 
   .meta {
     display: flex;
@@ -74,16 +84,20 @@
   }
 
   .date {
-    font-family: 'Press Start 2P', monospace;
+    font-family: "Press Start 2P", monospace;
     font-size: 7px;
     color: var(--nokia-pixel);
     letter-spacing: 1px;
   }
 
-  .tags { display: flex; gap: 6px; flex-wrap: wrap; }
+  .tags {
+    display: flex;
+    gap: 6px;
+    flex-wrap: wrap;
+  }
 
   .tag {
-    font-family: 'Press Start 2P', monospace;
+    font-family: "Press Start 2P", monospace;
     font-size: 6px;
     padding: 3px 8px;
     background: var(--nokia-dark);
@@ -93,7 +107,7 @@
   }
 
   h1 {
-    font-family: 'Press Start 2P', monospace;
+    font-family: "Press Start 2P", monospace;
     font-size: clamp(13px, 3vw, 18px);
     color: var(--nokia-glow);
     line-height: 1.8;
@@ -102,7 +116,7 @@
   }
 
   .excerpt {
-    font-family: 'Press Start 2P', monospace;
+    font-family: "Press Start 2P", monospace;
     font-size: 8px;
     color: var(--nokia-mid);
     line-height: 2.2;
@@ -118,7 +132,7 @@
 
   /* Markdown body */
   article {
-    font-family: 'Press Start 2P', monospace;
+    font-family: "Press Start 2P", monospace;
     font-size: 8px;
     color: var(--nokia-light);
     line-height: 2.4;
@@ -126,7 +140,7 @@
   }
 
   :global(article h2) {
-    font-family: 'Press Start 2P', monospace;
+    font-family: "Press Start 2P", monospace;
     font-size: 12px;
     color: var(--nokia-glow);
     font-weight: normal;
@@ -135,7 +149,7 @@
   }
 
   :global(article h3) {
-    font-family: 'Press Start 2P', monospace;
+    font-family: "Press Start 2P", monospace;
     font-size: 10px;
     color: var(--nokia-glow);
     font-weight: normal;
@@ -143,7 +157,9 @@
     line-height: 1.8;
   }
 
-  :global(article p)  { margin-bottom: 18px; }
+  :global(article p) {
+    margin-bottom: 18px;
+  }
 
   :global(article a) {
     color: var(--nokia-glow);
@@ -158,12 +174,16 @@
   }
 
   :global(article ul),
-  :global(article ol) { margin: 0 0 18px 20px; }
+  :global(article ol) {
+    margin: 0 0 18px 20px;
+  }
 
-  :global(article li) { margin-bottom: 8px; }
+  :global(article li) {
+    margin-bottom: 8px;
+  }
 
   :global(article code) {
-    font-family: 'Press Start 2P', monospace;
+    font-family: "Press Start 2P", monospace;
     font-size: 7px;
     background: var(--nokia-black);
     color: var(--nokia-glow);
@@ -178,6 +198,8 @@
     padding: 16px;
     overflow-x: auto;
     margin-bottom: 24px;
+    line-height: 1.8;
+    tab-size: 2;
   }
 
   :global(article pre code) {
@@ -185,7 +207,7 @@
     border: none;
     padding: 0;
     font-size: 7px;
-    line-height: 2;
+    line-height: inherit;
   }
 
   :global(article blockquote) {
@@ -202,7 +224,9 @@
     margin: 32px 0;
   }
 
-  :global(article strong) { color: var(--nokia-glow); }
+  :global(article strong) {
+    color: var(--nokia-glow);
+  }
 
   .post-foot {
     margin-top: 56px;
@@ -212,6 +236,8 @@
   }
 
   @media (max-width: 640px) {
-    main { padding: 88px 16px 48px; }
+    main {
+      padding: 88px 16px 48px;
+    }
   }
 </style>

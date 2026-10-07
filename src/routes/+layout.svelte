@@ -78,11 +78,22 @@
     const handleMouseLeave = () => { cursor.style.display = 'none'; };
     const handleMouseEnter = () => { cursor.style.display = 'block'; };
 
+    // Vim-style scrolling: j = down, k = up
+    const SCROLL_STEP = 120;
+    const handleKeydown = (e) => {
+      if (e.ctrlKey || e.metaKey || e.altKey) return;
+      if (e.target.closest?.('input, textarea, select, [contenteditable]')) return;
+      if (e.key === 'j') window.scrollBy({ top: SCROLL_STEP, behavior: 'smooth' });
+      else if (e.key === 'k') window.scrollBy({ top: -SCROLL_STEP, behavior: 'smooth' });
+    };
+
     window.addEventListener('mousemove', handleMouseMove);
+    window.addEventListener('keydown', handleKeydown);
     document.addEventListener('mouseleave', handleMouseLeave);
     document.addEventListener('mouseenter', handleMouseEnter);
 
     return () => {
+      window.removeEventListener('keydown', handleKeydown);
       window.removeEventListener('mousemove', handleMouseMove);
       document.removeEventListener('mouseleave', handleMouseLeave);
       document.removeEventListener('mouseenter', handleMouseEnter);
