@@ -37,7 +37,7 @@
   <div class="about-grid">
     <div class="about-text">
       <p>
-        HELLO WORLD. I'M EMILIO MENDOZA, A WATERLOO STUDENT WITH A PASSION FOR
+        HELLO WORLD. I'M EMILIO MENDOZA, THIS IS A TEST FOR MY CI, A WATERLOO STUDENT WITH A PASSION FOR
         BUILDING REAL SOFTWARE.
       </p>
       <p>
