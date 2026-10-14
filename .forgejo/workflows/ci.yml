@@ -21,13 +21,26 @@ jobs:
           docker push "$IMAGE:latest"
 
       - name: Deploy to Portainer stack
+        env:
+          PORTAINER_URL: ${{ secrets.PORTAINER_URL }}
+          PORTAINER_TOKEN: ${{ secrets.PORTAINER_TOKEN }}
+          PORTAINER_STACK_ID: ${{ secrets.PORTAINER_STACK_ID }}
+          PORTAINER_ENDPOINT_ID: ${{ secrets.PORTAINER_ENDPOINT_ID }}
         run: |
+          # secrets pasted into the UI often carry whitespace or a trailing
+          # slash, and Portainer answers a malformed path with a bare 404
+          url=$(printf %s "$PORTAINER_URL" | tr -d '[:space:]')
+          url=${url%/}
+          stack_id=$(printf %s "$PORTAINER_STACK_ID" | tr -d '[:space:]')
+          endpoint_id=$(printf %s "$PORTAINER_ENDPOINT_ID" | tr -d '[:space:]')
+          token=$(printf %s "$PORTAINER_TOKEN" | tr -d '[:space:]')
+
           # pin the stack to this commit so every deploy is explicit and
           # rolling back is redeploying an older sha
           stack=$(sed "s|$IMAGE:latest|$IMAGE:${{ github.sha }}|" docker-compose.prod.yml)
           jq -n --arg f "$stack" '{stackFileContent: $f, pullImage: true, env: []}' |
             curl -sS --fail-with-body -X PUT \
-              -H "X-API-Key: ${{ secrets.PORTAINER_TOKEN }}" \
+              -H "X-API-Key: $token" \
               -H "Content-Type: application/json" \
-              "${{ secrets.PORTAINER_URL }}/api/stacks/${{ secrets.PORTAINER_STACK_ID }}?endpointId=${{ secrets.PORTAINER_ENDPOINT_ID }}" \
+              "$url/api/stacks/$stack_id?endpointId=$endpoint_id" \
               -d @-
