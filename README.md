@@ -1,6 +1,4 @@
-# Emilio Mendoza — Portfolio Site
-
-Nokia 3310–inspired retro pixel art portfolio built with **SvelteKit 2 + Svelte 5**.
+# Emilio Mendoza - Portfolio Site
 
 ## Project Structure
 
