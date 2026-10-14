@@ -1,0 +1,10 @@
+services:
+  web:
+    image: git.emilio-mendoza.lan/emiliomendoza/personal-site:latest
+    container_name: emilio-mendoza
+    restart: unless-stopped
+    ports:
+      - "3004:3000"
+    environment:
+      - NODE_ENV=production
+      - PORT=3000

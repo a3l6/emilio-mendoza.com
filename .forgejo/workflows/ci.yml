@@ -3,7 +3,7 @@ on:
     branches: [main]
 
 jobs:
-  build-and-push:
+  build-and-deploy:
     runs-on: ubuntu-latest
     env:
       IMAGE: git.emilio-mendoza.lan/${{ github.repository }}
@@ -19,3 +19,15 @@ jobs:
           echo "${{ secrets.CI_TOKEN }}" | docker login git.emilio-mendoza.lan -u ${{ github.actor }} --password-stdin
           docker push "$IMAGE:${{ github.sha }}"
           docker push "$IMAGE:latest"
+
+      - name: Deploy to Portainer stack
+        run: |
+          # pin the stack to this commit so every deploy is explicit and
+          # rolling back is redeploying an older sha
+          stack=$(sed "s|$IMAGE:latest|$IMAGE:${{ github.sha }}|" docker-compose.prod.yml)
+          jq -n --arg f "$stack" '{stackFileContent: $f, pullImage: true, env: []}' |
+            curl -fsS -X PUT \
+              -H "X-API-Key: ${{ secrets.PORTAINER_TOKEN }}" \
+              -H "Content-Type: application/json" \
+              "${{ secrets.PORTAINER_URL }}/api/stacks/${{ secrets.PORTAINER_STACK_ID }}?endpointId=${{ secrets.PORTAINER_ENDPOINT_ID }}" \
+              -d @-
